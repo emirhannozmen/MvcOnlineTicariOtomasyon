@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Index5";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ürün - Stok Grafiği Pie</title>
+
+    <!-- Google Charts Library -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: '@Url.Action("VisualzeUrunResult2", "Grafik")',
+                success: function (result) {
+
+                    google.charts.load('current', {
+                        'packages': ['corechart', 'charteditor']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+        });
+
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Ürün Adı');
+            data.addColumn('number', 'Stok Miktarı');
+
+            var dataArray = [];
+
+
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.urn, obj.stk]);
+            });
+            data.addRows(dataArray);
+
+
+            var options = {
+                title: 'Ürün - Stok Grafiği',
+                width: 1200,
+                height: 700,
+                is3D: true,
+                slices: {
+                    0: {offset: 0.1},
+                    1: {offset: 0.1},
+                    2: {offset: 0.1},
+                },
+                pieSliceText: 'percentage'
+            };
+
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <h3>Ürün - Stok Grafiği Pie</h3>
+    <div id="piechart_div" style="width: 900px; height: 500px;"></div>
+</body>
+</html>

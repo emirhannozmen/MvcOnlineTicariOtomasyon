@@ -1,0 +1,51 @@
+﻿@using MvcOnlineTicariOtomasyon.Models.Siniflar
+@model List<Cariler>
+
+@{
+    ViewBag.Title = "Cari Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2 class="text-center">Cari Listesi</h2>
+<br />
+<div class="table-responsive">
+    <table class="table table-sm table-dark table-hover table-light">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Ad</th>
+                <th class="text-center">Soyad</th>
+                <th class="text-center">Şehir</th>
+                <th class="text-center">Mail</th>
+                <th class="text-center">Sil</th>
+                <th class="text-center">Güncelle</th>
+                <th class="text-center">Satış Geçmişi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td class="text-center">@x.CariAd</td>
+                    <td class="text-center">@x.CariSoyad</td>
+                    <td class="text-center">@x.CariSehir</td>
+                    <td class="text-center">@x.CariMail</td>
+                    <td class="text-center">
+                        <a href="/Cari/CariSil/@x.CariID" class="btn btn-outline-danger btn-sm">Sil</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/Cari/CariGetir/@x.CariID" class="btn btn-outline-success btn-sm">Güncelle</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/Cari/MusteriSatis/@x.CariID" class="btn btn-outline-primary btn-sm">Satış Geçmişi</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <a href="/Cari/YeniCari" class="btn btn-outline-info btn-app">
+        <i class="fas fa-plus"></i> Yeni Cari Ekle
+    </a>
+</div>

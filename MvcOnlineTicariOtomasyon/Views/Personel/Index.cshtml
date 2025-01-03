@@ -1,0 +1,49 @@
+﻿@using MvcOnlineTicariOtomasyon.Models.Siniflar
+@model List<Personel>
+
+@{
+    ViewBag.Title = "Personel Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2 class="text-center">Personel Listesi</h2>
+<br />
+<div class="table-responsive">
+    <table class="table table-sm table-dark table-hover table-light">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Personel Adı</th>
+                <th class="text-center">Soyad</th>
+                <th class="text-center">Departman</th>
+                <th class="text-center">Resim</th>
+                <th class="text-center">Güncelle</th>
+                <th class="text-center">Satışları Gör</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td class="text-center">@x.PersonelAd</td>
+                    <td class="text-center">@x.PersonelSoyad</td>
+                    <td class="text-center">@x.Departman.DepartmanAd</td>
+                    <td class="text-center">
+                        <img src="@x.PersonelGorsel" style="width:50px;height:50px;" />
+                    </td>
+                    <td class="text-center">
+                        <a href="/Personel/PersonelGetir/@x.PersonelID" class="btn btn-outline-success btn-sm">Güncelle</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/Departman/DepartmanPersonelSatis/@x.PersonelID" class="btn btn-outline-primary btn-sm">Detaylar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <a href="/Personel/PersonelEkle/" class="btn btn-outline-dark btn-app">
+        <i class="fas fa-plus"></i> Yeni Personel Ekle
+    </a>
+</div>

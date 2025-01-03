@@ -1,0 +1,45 @@
+﻿@using MvcOnlineTicariOtomasyon.Models.Siniflar
+@model List<Departman>
+
+@{
+    ViewBag.Title = "Departman Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+<h2 class="text-center">Departman Listesi</h2>
+<br />
+<div class="table-responsive">
+    <table class="table table-sm table-dark table-hover table-light">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Departman Adı</th>
+                <th class="text-center">Sil</th>
+                <th class="text-center">Güncelle</th>
+                <th class="text-center">Detaylar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var u in Model)
+            {
+                <tr>
+                    <td class="text-center">@u.DepartmanAd</td>
+                    <td class="text-center">
+                        <a href="/Departman/DepartmanSil/@u.DepartmanID" class="btn btn-outline-danger btn-sm">Sil</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/Departman/DepartmanGetir/@u.DepartmanID" class="btn btn-outline-success btn-sm">Güncelle</a>
+                    </td>
+                    <td class="text-center">
+                        <a href="/Departman/DepartmanDetay/@u.DepartmanID" class="btn btn-outline-primary btn-sm">Detaylar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    <a href="/Departman/DepartmanEkle/" class="btn btn-outline-primary btn-app">
+        <i class="fas fa-plus"></i> Yeni Departman
+    </a>
+</div>

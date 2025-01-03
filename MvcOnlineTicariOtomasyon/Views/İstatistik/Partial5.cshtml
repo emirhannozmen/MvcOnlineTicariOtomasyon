@@ -1,0 +1,54 @@
+﻿@model IEnumerable<MvcOnlineTicariOtomasyon.Models.Siniflar.Kategori>
+
+<div class="card-body">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width: 10px">#</th>
+                <th>Kategori Adı</th>
+                <th>Progress Bar</th>
+                <th style="width: 40px">Oran</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+                Random rnd = new Random();  // Random sınıfını burada oluşturuyoruz
+            }
+            @foreach (var x in Model)
+            {
+
+                int progressOrani = rnd.Next(0, 101); 
+                string progressBarClass = "progress-bar";
+                string badgeClass = "badge bg-primary";  
+
+                if (progressOrani <= 30)
+                {
+                    progressBarClass += " bg-danger";  
+                    badgeClass = "badge bg-danger";   
+                }
+                else if (progressOrani <= 60)
+                {
+                    progressBarClass += " bg-warning";  
+                    badgeClass = "badge bg-warning";   
+                }
+                else if (progressOrani <= 100)
+                {
+                    progressBarClass += " bg-success";  
+                    badgeClass = "badge bg-success";  
+                }
+                
+                <tr>
+                    <td>@{ i++; } @i</td>
+                    <td>@x.KategoriAd</td>
+                    <td>
+                        <div class="progress progress-xs">
+                            <div class="@progressBarClass" style="width: @progressOrani%"></div>
+                        </div>
+                    </td>
+                    <td><span class="@badgeClass">@progressOrani%</span></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

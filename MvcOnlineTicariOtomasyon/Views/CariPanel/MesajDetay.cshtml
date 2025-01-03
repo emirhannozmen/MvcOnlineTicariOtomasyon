@@ -1,0 +1,163 @@
+﻿@{
+    ViewBag.Title = "MesajDetay";
+    Layout = "~/Views/Shared/_CariLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Mesaj Detay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        .deleteButton {
+            color: black;
+        }
+
+            .deleteButton:hover {
+                color: red;
+            }
+
+        .printButton {
+            color: black;
+        }
+
+            .printButton:hover {
+                color: darkcyan;
+            }
+
+        .replyAndShareButtons {
+            color: black;
+        }
+
+            .replyAndShareButtons:hover {
+                color: dodgerblue;
+            }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="mb-0" style="margin-top: 0;"><strong>Mesaj Detayları</strong></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="/CariPanel/YeniMesaj/" class="btn btn-primary btn-block mb-3">Yeni Mesaj Oluştur</a>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Mesaj Kategorileri</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item active">
+                                <a href="/CariPanel/GelenMesajlar/" class="nav-link">
+                                    <i class="fas fa-inbox text-success"></i> <strong>Gelen Kutusu</strong>
+                                    <span class="badge bg-success float-right">@ViewBag.d1</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/CariPanel/GidenMesajlar/" class="nav-link">
+                                    <i class="far fa-paper-plane text-info"></i> <strong>Gönderilen Mesajlar</strong>
+                                    <span class="badge bg-info float-right">@ViewBag.d2</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-star text-warning"></i> <strong>Yıldızlı Mesajlar</strong>
+                                    <span class="badge bg-warning float-right">0</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-ban text-danger"></i> <strong>Gereksiz Mesajlar</strong>
+                                    <span class="badge bg-danger float-right">0</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-trash text-secondary"></i> <strong>Çöp Kutusu</strong>
+                                    <span class="badge bg-secondary float-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Mesaj Filtreleri</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-chevron-up"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-exclamation-circle text-danger"></i> <strong>Önemliler</strong>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-gift text-warning"></i> <strong>Promosyonlar</strong>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-share-alt text-primary"></i> <strong>Sosyal Medya Mesajları</strong>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card card-primary card-outline">
+                    @foreach (var x in Model)
+                    {
+                        <div class="card-header">
+                            <h3 class="card-title"><strong>Mesaj : @x.Konu</strong></h3>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Gönderen:</strong> @x.Gonderici</p>
+                            <p><strong>Tarih:</strong> @x.Tarih.ToShortDateString()</p>
+                            <p>@x.Icerik</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="button" class="btn btn-default replyAndShareButtons"><i class="fas fa-reply"></i> Yanıtla</button>
+                                <button type="button" class="btn btn-default replyAndShareButtons"><i class="fas fa-share"></i> İlet</button>
+                            </div>
+                            <button type="button" class="btn btn-default deleteButton"><i class="far fa-trash-alt"></i> Sil</button>
+                            <button type="button" class="btn btn-default printButton"><i class="fas fa-print"></i> Yazdır</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <script src="~/AdminLTE-3.0.4/dist/js/adminlte.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+﻿@using MvcOnlineTicariOtomasyon.Models.Siniflar
+@model List<Urun>
+
+@{
+    ViewBag.Title = "Ürün Listesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<br />
+
+<h2 class="text-center">Ürün Listesi</h2>
+
+@using (Html.BeginForm("Index", "Urun", FormMethod.Get))
+{
+    <div class="input-group mb-3">
+        <input type="text" name="p" class="form-control" placeholder="Ürün adı girin..." aria-label="Ürün Adı" aria-describedby="basic-addon2" />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-dark">
+                <i class="fas fa-search"></i> Ara
+            </button>
+        </div>
+    </div>
+}
+
+<div class="table-responsive">
+    <table class="table table-sm table-dark table-hover table-light">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Ürün</th>
+                <th class="text-center">Marka</th>
+                <th class="text-center">Stok</th>
+                <th class="text-center">Alış Fiyatı</th>
+                <th class="text-center">Satış Fiyatı</th>
+                <th class="text-center">Kategori</th>
+                <th class="text-center">Sil</th>
+                <th class="text-center">Güncelle</th>
+                <th class="text-center">Satış Yap</th>
+                <th class="text-center">Detaylar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var x in Model)
+            {
+                <tr>
+                    <td class="text-center">@x.UrunAd</td>
+                    <td class="text-center">@x.Marka</td>
+                    <td class="text-center">@x.Stok</td>
+                    <td class="text-center">@x.AlisFiyat ₺</td>
+                    <td class="text-center">@x.SatisFiyat ₺</td>
+                    <td class="text-center">@x.Kategori.KategoriAd</td>
+                    <td class="text-center"><a href="/Urun/UrunSil/@x.UrunID" class="btn btn-outline-danger btn-sm">Sil</a></td>
+                    <td class="text-center"><a href="/Urun/UrunGetir/@x.UrunID" class="btn btn-outline-success btn-sm">Güncelle</a></td>
+                    <td class="text-center"><a href="/Urun/SatisYap/@x.UrunID" class="btn btn-outline-warning btn-sm">Satış Yap</a></td>
+                    <td class="text-center">
+                        <a href="@Url.Action("Index", "UrunDetay", new { id = x.UrunID })" class="btn btn-outline-info btn-sm">Detaylar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<a href="/Urun/YeniUrun/" class="btn btn-outline-dark btn-app">
+    <i class="fas fa-plus"></i> Yeni Ürün
+</a>
